@@ -48,6 +48,8 @@ Berikan respons HANYA dalam format JSON valid dengan struktur kunci berikut (tan
 
     // --- INITIALIZATION ---
     function initializeNulisApp() {
+      // Remove any API key left by the legacy browser-based implementation.
+      localStorage.removeItem('swp_api_key');
       loadConfigurations();
       loadStoredAnswers();
       loadStoredStatus();

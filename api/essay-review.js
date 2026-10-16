@@ -55,7 +55,7 @@ module.exports=async function essayReviewHandler(req,res){
  try{
   const provider=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(MODEL)+':generateContent',{
    method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':process.env.GEMINI_API_KEY},
-   body:JSON.stringify({contents,systemInstruction:{parts:[{text:systemInstruction}]},generationConfig:{...(responseMimeType?{responseMimeType}:{}),maxOutputTokens,temperature:action==='chat'?.65:.25}})
+   body:JSON.stringify({contents,systemInstruction:{parts:[{text:systemInstruction}]},generationConfig:{...(responseMimeType?{responseMimeType}:{}),maxOutputTokens,temperature: action === 'chat' ? 0.65 : 0.25}})
   });
   const data=await provider.json().catch(()=>({}));
   if(!provider.ok)return respond(res,provider.status===429?429:502,{code:provider.status===429?'PROVIDER_RATE_LIMITED':'AI_PROVIDER_ERROR',message:provider.status===429?'Batas permintaan AI tercapai. Coba lagi sebentar.':'Layanan AI gagal memproses permintaan. Periksa API key dan model.'});
