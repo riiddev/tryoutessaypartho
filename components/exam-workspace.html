@@ -1,0 +1,172 @@
+<!-- 3. WORKSPACE UJIAN: TAMPILAN PREMIUM -->
+    <!-- ============================================== -->
+    <section id="section-exam" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6 items-start animate-fadeIn">
+      
+      <!-- Kolom Utama: Editor & Soal (Col 9) -->
+      <div class="lg:col-span-9 space-y-4">
+        
+        <!-- Kartu Utama Ujian -->
+        <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+          
+          <!-- Header Soal (No Soal & Subjek) -->
+          <div class="bg-slate-50 border-b border-slate-200 px-5 py-4 flex justify-between items-center">
+            <span id="exam-question-number" class="font-extrabold text-slate-800 text-lg md:text-xl font-title">
+              Paket Soal #--
+            </span>
+            <span id="exam-question-subject" class="text-xs md:text-sm font-extrabold tracking-widest text-slate-700 uppercase font-title">
+              -
+            </span>
+          </div>
+
+          <!-- Teks Pertanyaan -->
+          <div class="p-5 border-b border-slate-100 bg-amber-50/30">
+            <p id="exam-question-text" class="text-slate-800 text-sm md:text-base leading-relaxed select-text font-semibold">
+              -
+            </p>
+          </div>
+
+          <!-- Rich Text Editor Toolbar -->
+          <div class="editor-toolbar bg-[#eef2f7] border-b border-slate-200 p-2.5 flex flex-wrap gap-1.5 items-center">
+            <button onclick="execCmd('bold')" title="Tebal" class="px-3 py-1.5 rounded hover:bg-slate-200 text-slate-700 font-bold text-sm">B</button>
+            <button onclick="execCmd('italic')" title="Miring" class="px-3 py-1.5 rounded hover:bg-slate-200 text-slate-700 italic font-serif text-sm">I</button>
+            <button onclick="execCmd('underline')" title="Garis Bawah" class="px-3 py-1.5 rounded hover:bg-slate-200 text-slate-700 underline text-sm">U</button>
+            
+            <div class="h-4 w-[1px] bg-slate-300 mx-1"></div>
+            
+            <button onclick="execCmd('strikeThrough')" title="Coret" class="px-3 py-1.5 rounded hover:bg-slate-200 text-slate-700 line-through text-sm">S</button>
+            <button onclick="execCmd('superscript')" title="Pangkat Atas" class="px-3 py-1.5 rounded hover:bg-slate-200 text-slate-700 text-xs">X<sup>2</sup></button>
+            <button onclick="execCmd('subscript')" title="Pangkat Bawah" class="px-3 py-1.5 rounded hover:bg-slate-200 text-slate-700 text-xs">X<sub>2</sub></button>
+            
+            <div class="h-4 w-[1px] bg-slate-300 mx-1"></div>
+            
+            <select onchange="execCmd('fontSize', this.value)" class="bg-white border border-slate-300 text-slate-700 rounded px-2 py-1 text-xs outline-none cursor-pointer">
+              <option value="2">10pt</option>
+              <option value="3" selected>12pt</option>
+              <option value="4">14pt</option>
+              <option value="5">18pt</option>
+              <option value="6">24pt</option>
+            </select>
+            
+            <button onclick="execCmd('foreColor', '#ef4444')" title="Warna Merah" class="w-6 h-6 rounded-full bg-red-500 hover:scale-105 transition border border-white shadow-sm"></button>
+            <button onclick="execCmd('foreColor', '#1d4ed8')" title="Warna Biru" class="w-6 h-6 rounded-full bg-blue-700 hover:scale-105 transition border border-white shadow-sm"></button>
+            <button onclick="execCmd('foreColor', '#000000')" title="Warna Hitam" class="w-6 h-6 rounded-full bg-black hover:scale-105 transition border border-white shadow-sm"></button>
+            
+            <div class="h-4 w-[1px] bg-slate-300 mx-1"></div>
+            
+            <button onclick="execCmd('insertUnorderedList')" title="Daftar Poin" class="px-3 py-1.5 rounded hover:bg-slate-200 text-slate-700"><i class="fa-solid fa-list-ul text-sm"></i></button>
+            <button onclick="execCmd('insertOrderedList')" title="Daftar Angka" class="px-3 py-1.5 rounded hover:bg-slate-200 text-slate-700"><i class="fa-solid fa-list-ol text-sm"></i></button>
+            <button onclick="execCmd('justifyLeft')" title="Rata Kiri" class="px-3 py-1.5 rounded hover:bg-slate-200 text-slate-700"><i class="fa-solid fa-align-left text-sm"></i></button>
+            <button onclick="execCmd('justifyCenter')" title="Rata Tengah" class="px-3 py-1.5 rounded hover:bg-slate-200 text-slate-700"><i class="fa-solid fa-align-center text-sm"></i></button>
+            
+            <div class="h-4 w-[1px] bg-slate-300 mx-1"></div>
+            
+            <button onclick="clearFormatting()" title="Hapus Format" class="px-3 py-1.5 rounded hover:bg-red-100 text-red-600 text-xs font-bold">Tx</button>
+          </div>
+
+          <!-- Area Mengetik Esai -->
+          <div class="p-6 bg-white min-h-[350px] md:min-h-[450px] relative">
+            <div 
+              id="essay-editor" 
+              contenteditable="true" 
+              class="w-full h-full min-h-[330px] md:min-h-[430px] focus:outline-none text-slate-800 text-base leading-relaxed"
+              placeholder="Ketik disini..."
+              oninput="handleEditorInput()"
+            ></div>
+          </div>
+
+          <!-- Live AI Essay Review -->
+          <aside id="live-review-card" class="live-review-card mx-4 md:mx-6 mb-5" aria-live="polite" aria-atomic="false">
+            <div class="live-review-heading">
+              <div class="live-review-title">
+                <span class="live-review-mark"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                <div>
+                  <h3>AI Essay Coach <span class="live-review-live">LIVE</span></h3>
+                  <p>Ulasan otomatis saat kamu menulis — tanpa perlu menunggu ujian selesai.</p>
+                </div>
+              </div>
+              <div class="live-review-score-wrap">
+                <span id="live-review-status" class="live-review-status">Menunggu tulisan</span>
+                <strong id="live-review-score">—<small>/100</small></strong>
+              </div>
+            </div>
+            <p id="live-review-summary" class="live-review-summary">Mulai tulis minimal 30 kata untuk mendapat masukan AI.</p>
+            <div class="live-review-columns">
+              <div>
+                <h4><i class="fa-solid fa-circle-check"></i> Yang sudah kuat</h4>
+                <ul id="live-review-strengths"><li>Argumen dan ide akan ditinjau di sini.</li></ul>
+              </div>
+              <div>
+                <h4><i class="fa-solid fa-bullseye"></i> Perlu ditingkatkan</h4>
+                <ul id="live-review-improvements"><li>AI akan menunjukkan perbaikan yang paling penting.</li></ul>
+              </div>
+            </div>
+            <div class="live-review-next">
+              <strong>Langkah berikutnya</strong>
+              <p id="live-review-next">Gunakan contoh, alasan, dan solusi yang jelas.</p>
+            </div>
+          </aside>
+
+          <!-- Bar Penghitung Karakter & Kata -->
+          <div class="bg-slate-100 border-t border-slate-200 px-4 py-2.5 flex justify-between items-center text-xs text-slate-500 font-mono">
+            <div class="flex items-center gap-1">
+              <span class="font-semibold text-slate-600">Status:</span>
+              <span id="saved-indicator" class="text-emerald-600 font-semibold"><i class="fa-solid fa-check-double mr-1"></i>Tersimpan</span>
+            </div>
+            <div class="flex gap-4">
+              <span>Words: <strong id="counter-word" class="text-blue-700 font-bold">0</strong></span>
+              <span>Text: <strong id="counter-text" class="text-slate-700">0</strong></span>
+              <span>HTML: <strong id="counter-html" class="text-slate-700 font-normal">0</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel Tombol Navigasi Ujian Bawah -->
+        <div class="flex justify-between items-center">
+          <button onclick="exitToPackageSelector()" class="bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 px-5 py-3 rounded-xl font-bold text-sm flex items-center gap-2 transition shadow-sm">
+            <i class="fa-solid fa-chevron-left"></i> Kembali Pilih Paket
+          </button>
+        </div>
+      </div>
+
+      <!-- Kolom Kanan: Sesi Kontrol & Timer (Col 3) -->
+      <div class="lg:col-span-3 space-y-4">
+        
+        <!-- Timer Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 text-center">
+          <h3 id="timer-pkg-label" class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Waktu Paket</h3>
+          <div id="countdown-timer" class="text-4xl font-extrabold font-mono text-slate-800 tracking-wider">
+            10:00
+          </div>
+          <div class="w-full bg-slate-100 h-2 rounded-full mt-3 overflow-hidden">
+            <div id="timer-progress" class="bg-amber-500 h-full transition-all duration-1000" class="timer-progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- Detail Paket Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+          <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 pb-2 border-b border-slate-100">Informasi Paket</h3>
+          <div class="space-y-3 text-xs text-slate-600">
+            <div class="flex justify-between">
+              <span>Mata Ujian:</span>
+              <strong id="info-pkg-subject" class="text-slate-800">-</strong>
+            </div>
+            <div class="flex justify-between">
+              <span>Durasi Batas:</span>
+              <strong class="text-slate-800">10 Menit</strong>
+            </div>
+            <div class="flex justify-between">
+              <span>Status Pengerjaan:</span>
+              <span id="info-pkg-status" class="font-bold text-amber-600">Aktif</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tombol Selesai & Kirim Ujian -->
+        <button onclick="confirmSubmitExam()" class="w-full bg-red-600 hover:bg-red-500 text-white font-extrabold py-4 rounded-2xl text-center shadow-lg hover:shadow-red-500/10 transition-all flex items-center justify-center gap-2 group">
+          <i class="fa-solid fa-paper-plane group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+          Selesai & Evaluasi Paket
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================== -->

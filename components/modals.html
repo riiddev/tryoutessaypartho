@@ -1,0 +1,77 @@
+<!-- DIALOG MODALS -->
+  <!-- ============================================== -->
+  
+  <!-- 1. MODAL TAMBAH & EDIT PAKET SOAL (ADMIN) -->
+  <div id="modal-package-form" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl border border-slate-200 animate-scaleUp">
+      <div class="bg-slate-900 text-white px-5 py-4 flex justify-between items-center">
+        <h3 class="font-bold text-base font-title flex items-center gap-2">
+          <i class="fa-solid fa-cubes text-blue-400"></i> <span id="modal-title-action">Formulir</span> Paket Soal
+        </h3>
+        <button onclick="closePackageFormModal()" class="text-slate-400 hover:text-white transition">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <div class="p-6 space-y-4">
+        <input type="hidden" id="modal-input-pkg-id">
+        <div>
+          <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Mata Ujian (Subjek)</label>
+          <input type="text" id="modal-input-subject" placeholder="Contoh: WAWASAN KEBANGSAAN" class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Pertanyaan Esai</label>
+          <textarea id="modal-input-text" rows="5" placeholder="Ketik pertanyaan esai di sini..." class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Durasi Pengerjaan (Detik)</label>
+          <input type="number" id="modal-input-duration" value="600" class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          <p class="text-[10px] text-slate-400 mt-1">Default: 600 detik (10 menit)</p>
+        </div>
+      </div>
+      <div class="bg-slate-50 px-5 py-3 flex justify-end gap-2 border-t border-slate-200">
+        <button onclick="closePackageFormModal()" class="px-4 py-2 rounded-lg text-xs font-bold text-slate-600 hover:bg-slate-100 transition">Batal</button>
+        <button onclick="savePackageForm()" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. MODAL DIALOG CUSTOM -->
+  <div id="modal-alert" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-2xl border border-slate-200 p-6 text-center space-y-4 animate-scaleUp">
+      <div id="modal-alert-icon-container" class="w-12 h-12 rounded-full mx-auto flex items-center justify-center text-xl">
+        <!-- Icon -->
+      </div>
+      <div class="space-y-1">
+        <h4 id="modal-alert-title" class="text-base font-bold text-slate-800 font-title">Judul</h4>
+        <div id="modal-alert-desc" class="text-xs text-slate-500 leading-relaxed">Keterangan...</div>
+      </div>
+      <div id="modal-alert-buttons" class="pt-2 flex justify-center gap-2">
+        <!-- Buttons -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. MODAL DETAIL RIWAYAT JAWABAN (ADMIN/SISWA) -->
+  <div id="modal-history-detail" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[90] flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl border border-slate-200 animate-scaleUp">
+      <div class="bg-gradient-to-r from-slate-900 to-[#3e2413] text-white px-5 py-4 flex justify-between items-center flex-shrink-0">
+        <div>
+          <h3 class="font-bold text-base font-title flex items-center gap-2 text-amber-300">
+            <i class="fa-solid fa-file-contract"></i> Arsip Riwayat Esai & Evaluasi
+          </h3>
+          <p id="modal-history-subtitle" class="text-xs text-slate-300 mt-0.5">Detail Log: --</p>
+        </div>
+        <button onclick="closeHistoryModal()" class="text-slate-400 hover:text-white transition">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto bg-slate-50 flex-1 space-y-6" id="modal-history-content">
+        <!-- Konten Detail Riwayat akan disuntikkan disini -->
+      </div>
+      <div class="bg-white px-5 py-3 flex justify-end gap-2 border-t border-slate-200 flex-shrink-0">
+        <button onclick="closeHistoryModal()" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition shadow-md">Tutup Riwayat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->

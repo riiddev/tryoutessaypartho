@@ -1,0 +1,127 @@
+<!-- 1. MODE ADMIN: DEVELOPER & CONFIG DASHBOARD -->
+    <!-- ============================================== -->
+    <section id="section-admin" class="hidden bg-white/90 backdrop-blur-md rounded-3xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-300 animate-fadeIn space-y-6">
+      
+      <!-- Admin Header -->
+      <div class="bg-slate-900 text-white px-6 py-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h2 class="text-xl font-bold font-title flex items-center gap-2 text-blue-400">
+            <i class="fa-solid fa-cubes-stacked"></i> Developer Suite & Panel Kontrol Admin
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">Edit paket, pantau riwayat jawaban esai, dan ekspor data.</p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="exportPackagesJSON()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs px-3.5 py-2 rounded-xl font-bold flex items-center gap-2 transition border border-slate-700">
+            <i class="fa-solid fa-file-export"></i> Ekspor Soal (JSON)
+          </button>
+          <button onclick="lockToExamMode()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2 rounded-xl font-bold flex items-center gap-2 transition shadow-md">
+            <i class="fa-solid fa-lock"></i> Kunci Mode Ujian
+          </button>
+        </div>
+      </div>
+
+      <div class="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Kolom Kiri Admin (Konfigurasi & Prompts) - Lg: Col 4 -->
+        <div class="lg:col-span-4 space-y-6">
+          <!-- Server-side AI evaluator configuration -->
+          <div class="bg-slate-50 border border-slate-200 p-5 rounded-2xl space-y-4">
+            <h3 class="font-bold text-sm text-slate-800 flex items-center gap-2">
+              <i class="fa-solid fa-shield-halved text-emerald-600"></i> AI Essay Coach
+            </h3>
+            <div class="rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs text-amber-900 leading-relaxed">
+              <strong>Kunci API tersimpan aman di server.</strong>
+              <p class="mt-1">Tambahkan <code>GEMINI_API_KEY</code> di Vercel → Settings → Environment Variables agar pemeriksaan AI aktif. Jangan tempel kunci API di browser.</p>
+              <p id="ai-server-status" class="mt-2 font-semibold">Menunggu konfigurasi AI server…</p>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Rubrik penilaian khusus</label>
+              <textarea id="admin-ai-prompt" rows="4" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none text-slate-700 leading-relaxed"></textarea>
+            </div>
+            <button onclick="saveAdminConfigurations()" class="w-full bg-slate-800 hover:bg-slate-700 text-white text-xs py-2.5 rounded-xl font-semibold transition">
+              Simpan Rubrik Penilaian
+            </button>
+          </div>
+
+          <!-- Drag & Drop Instant Loader -->
+          <div class="bg-blue-50/40 border-2 border-dashed border-blue-200 rounded-2xl p-5 text-center transition hover:border-blue-400" id="drop-zone">
+            <i class="fa-solid fa-cloud-arrow-up text-blue-500 text-3xl mb-2 animate-bounce"></i>
+            <h3 class="font-bold text-sm text-slate-700">Impor Database Paket</h3>
+            <p class="text-[11px] text-slate-500 mt-1 mb-4">Sapu bersih & perbarui sistem dari file backup JSON</p>
+            <div class="flex items-center justify-center gap-2">
+              <label class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3.5 py-2 rounded-xl cursor-pointer font-semibold transition shadow-sm">
+                Unggah JSON
+                <input type="file" id="file-uploader" class="hidden" accept=".json" onchange="handleFileSelect(event)">
+              </label>
+              <button onclick="loadDefaultPackages()" class="bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs px-3 py-1.5 rounded-xl font-semibold transition">
+                Reset Pabrik
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kolom Kanan Admin (Kelola Paket & Monitoring Kelas) - Lg: Col 8 -->
+        <div class="lg:col-span-8 space-y-6">
+          
+          <!-- Kelola Paket List -->
+          <div class="bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-sm">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-sm text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-list-check text-blue-600"></i> Manajemen Paket Soal Aktif (<span id="admin-packages-count">0</span>)
+              </h3>
+              <button onclick="openAddPackageModal()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3.5 py-2 rounded-xl font-bold flex items-center gap-1.5 transition shadow-sm">
+                <i class="fa-solid fa-plus"></i> Tambah Paket Baru
+              </button>
+            </div>
+
+            <div class="border border-slate-200 rounded-xl overflow-hidden max-h-[250px] overflow-y-auto bg-slate-50">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-100 text-slate-600 text-xs font-bold border-b border-slate-200">
+                    <th class="px-4 py-3 w-16 text-center">Paket</th>
+                    <th class="px-4 py-3 w-40">Mata Ujian (Subjek)</th>
+                    <th class="px-4 py-3">Pertanyaan Esai</th>
+                    <th class="px-4 py-3 w-28 text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-packages-tbody" class="text-xs text-slate-700">
+                  <!-- Baris paket dimuat otomatis -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Laporan Rekap Nilai Siswa (Grades Ledger) -->
+          <div class="bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-sm">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-sm text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-database text-violet-600"></i> Rekap Nilai & Riwayat Pengumpulan Siswa
+              </h3>
+              <button onclick="clearGradesLedger()" class="text-xs text-rose-600 hover:text-rose-800 font-bold transition">
+                <i class="fa-regular fa-trash-can mr-1"></i> Kosongkan Riwayat
+              </button>
+            </div>
+
+            <div class="border border-slate-200 rounded-xl overflow-hidden max-h-[250px] overflow-y-auto bg-slate-50">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-100 text-slate-600 text-xs font-bold border-b border-slate-200">
+                    <th class="px-4 py-2.5">Waktu</th>
+                    <th class="px-4 py-2.5">ID Siswa</th>
+                    <th class="px-4 py-2.5">Paket</th>
+                    <th class="px-4 py-2.5 text-center">Skor</th>
+                    <th class="px-4 py-2.5 text-center">Aksi (Jawaban)</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-grades-tbody" class="text-xs text-slate-600">
+                  <!-- Baris log nilai dimuat otomatis -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->

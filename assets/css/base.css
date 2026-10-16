@@ -1,0 +1,44 @@
+body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f3f7fa;
+      position: relative;
+    }
+    .font-title {
+      font-family: 'Outfit', sans-serif;
+    }
+    /* Scrollbar Customization */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .editor-toolbar button {
+      transition: all 0.15s;
+    }
+    .editor-toolbar button:hover {
+      background-color: #e2e8f0;
+    }
+    .animate-fadeIn {
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Placeholder for contenteditable */
+    [contenteditable=true]:empty:before{
+      content: attr(placeholder);
+      pointer-events: none;
+      color: #94a3b8;
+      display: block;
+    }
+

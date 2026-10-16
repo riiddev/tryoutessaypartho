@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+<title id="title">Miko — Nulis Esai by Parthoo</title><desc id="desc">Maskot buku krem dengan mata ramah dan pensil emas.</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff7d6"/><stop offset="1" stop-color="#fde68a"/></linearGradient><linearGradient id="book" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffdf5"/><stop offset="1" stop-color="#e7e5e4"/></linearGradient><linearGradient id="pencil" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fcd34d"/><stop offset="1" stop-color="#d97706"/></linearGradient></defs>
+<circle cx="80" cy="80" r="76" fill="url(#bg)"/><circle cx="28" cy="43" r="4" fill="#f59e0b"/><path d="M126 33l2.5 6.5L135 42l-6.5 2.5L126 51l-2.5-6.5L117 42l6.5-2.5z" fill="#f59e0b"/>
+<ellipse cx="78" cy="136" rx="42" ry="7" fill="#92400e" opacity=".12"/>
+<path d="M42 43Q62 35 79 47V108Q59 97 42 109Z" fill="url(#book)" stroke="#b45309" stroke-width="3" stroke-linejoin="round"/><path d="M79 47Q98 34 116 43L111 109Q95 98 79 108Z" fill="url(#book)" stroke="#b45309" stroke-width="3" stroke-linejoin="round"/><path d="M79 48V108" stroke="#d6d3d1" stroke-width="2"/>
+<path d="M51 59Q63 55 70 59M51 69Q63 65 70 69M51 79Q63 75 70 79M88 58Q100 53 108 57M88 68Q100 63 107 67" fill="none" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round"/>
+<ellipse cx="62" cy="88" rx="4.6" ry="5.5" fill="#292524"/><ellipse cx="96" cy="87" rx="4.6" ry="5.5" fill="#292524"/><circle cx="63.5" cy="86" r="1.4" fill="#fff"/><circle cx="97.5" cy="85" r="1.4" fill="#fff"/>
+<path d="M70 96Q79 104 88 95" stroke="#b45309" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="52" cy="94" r="4" fill="#fda4af" opacity=".8"/><circle cx="105" cy="93" r="4" fill="#fda4af" opacity=".8"/>
+<g transform="translate(103 68) rotate(32)"><rect width="11" height="47" rx="3" fill="url(#pencil)" stroke="#92400e" stroke-width="1.5"/><path d="M0 7H11" stroke="#92400e" stroke-width="2"/><path d="M0 0Q5.5 -8 11 0Z" fill="#fef3c7" stroke="#92400e" stroke-width="1.5"/><path d="M4 47L5.5 53 7 47Z" fill="#44403c"/></g>
+<path d="M34 119Q42 112 49 120M117 118Q125 111 132 119" fill="none" stroke="#d97706" stroke-width="3" stroke-linecap="round"/></svg>

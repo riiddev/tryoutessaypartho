@@ -1,0 +1,7 @@
+/* GSAP-ready motion polish */
+:root { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+
+.live-review-card{animation:review-enter .45s ease both}
+@keyframes review-enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.app-load-error{margin:1rem auto;max-width:48rem;padding:1rem;border:1px solid #fecaca;border-radius:1rem;background:#fff1f2;color:#9f1239}

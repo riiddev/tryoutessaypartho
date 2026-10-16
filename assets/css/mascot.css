@@ -1,0 +1,38 @@
+    /* MASCOT COMPANION DYNAMIC ANIMATIONS */
+    @keyframes mascotFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+    @keyframes mascotBreath {
+      0%, 100% { transform: scale(1) translateY(0); }
+      50% { transform: scale(1.05) translateY(-5px); }
+    }
+    @keyframes mascotWobble {
+      0%, 100% { transform: rotate(-3deg) translateY(0); }
+      50% { transform: rotate(3deg) translateY(-8px); }
+    }
+    @keyframes shadowPulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(0.85); opacity: 0.15; }
+    }
+    .mascot-anim-float {
+      animation: mascotFloat 4s ease-in-out infinite;
+    }
+    .mascot-anim-breath {
+      animation: mascotBreath 3.5s ease-in-out infinite;
+    }
+    .mascot-anim-wobble {
+      animation: mascotWobble 2.5s ease-in-out infinite;
+    }
+    .animate-mascot-shadow {
+      animation: shadowPulse 4s ease-in-out infinite;
+    }
+    /* Mascot Single Image Config using 1000958558.png */
+    .mascot-sprite {
+      background-image: url('../images/mascot.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      image-rendering: -webkit-optimize-contrast;
+    }
+
