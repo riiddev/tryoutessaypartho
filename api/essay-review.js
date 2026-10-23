@@ -41,8 +41,14 @@ module.exports=async function essayReviewHandler(req,res){
  if(!['review','evaluate','chat'].includes(action))return respond(res,400,{code:'UNKNOWN_ACTION',message:'Aksi AI tidak dikenal.'});
  let contents,systemInstruction,responseMimeType,maxOutputTokens;
  if(action==='chat'){
+  if(body.messages!==undefined&&!Array.isArray(body.messages)){
+   return respond(res,400,{code:'INVALID_MESSAGES',message:'Riwayat chat tidak valid.'});
+  }
   const messages=Array.isArray(body.messages)?body.messages.slice(-12):[];
-  contents=messages.map(message=>({role:message.role==='model'?'model':'user',parts:[{text:safeText(message.text,1800)}]})).filter(message=>message.parts[0].text);
+  if(messages.some(message=>!message||typeof message!=='object'||Array.isArray(message)||!['user','model','assistant'].includes(message.role)||typeof message.text!=='string')){
+   return respond(res,400,{code:'INVALID_MESSAGES',message:'Setiap pesan chat harus memiliki role dan teks yang valid.'});
+  }
+  contents=messages.map(message=>({role:message.role==='model'||message.role==='assistant'?'model':'user',parts:[{text:safeText(message.text,1800)}]})).filter(message=>message.parts[0].text);
   if(!contents.length||contents[contents.length-1].role!=='user')contents.push({role:'user',parts:[{text:safeText(body.questionText,1800)||'Bantu saya memahami umpan balik esai.'}]});
   systemInstruction='Kamu tutor Nulis Esai by Parthoo. Jawab dalam Bahasa Indonesia yang jelas, hangat, kritis, mendidik. Jangan mengarang fakta.\nSubjek: '+subject+'\nSoal: '+question+'\nJawaban siswa: '+answer;
   maxOutputTokens=800;
